@@ -8,8 +8,8 @@
 
 namespace Labyrinth {
     class World;
-    class Player final : public Entity {
 
+    class Player final : public Entity {
     public:
         explicit Player(const Definition &definition, World &world);
 
@@ -21,10 +21,11 @@ namespace Labyrinth {
 
         void update(float deltaTime, double totalTime) override;
 
-        std::unique_ptr<Spell> castSpell() const;
+        void addSpell(std::unique_ptr<Spell>&& spell);
 
     private:
         sf::RectangleShape rectangle;
+        std::vector<std::unique_ptr<Spell> > spells;
         World &world;
         const float speed = 100.0f;
     };

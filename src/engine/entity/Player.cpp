@@ -24,8 +24,8 @@ namespace Labyrinth {
         directions.left = InputHandler::isKeyPressed(sf::Keyboard::A);
         directions.up = InputHandler::isKeyPressed(sf::Keyboard::W);
         directions.down = InputHandler::isKeyPressed(sf::Keyboard::S);
-        if (InputHandler::isKeyJustPressed(sf::Keyboard::Space)) {
-            world.addEntity(castSpell());
+        if (InputHandler::isKeyPressed(sf::Keyboard::Space)) {
+            addSpell(std::make_unique<Spell>(definition, directions));
         }
     }
 
@@ -39,10 +39,16 @@ namespace Labyrinth {
         definition.x += dx * deltaTime * speed;
         definition.y += dy * deltaTime * speed;
         rectangle.move(dx * deltaTime * speed, dy * deltaTime * speed);
+
+        if (!spells.empty()) {
+            for (std::unique_ptr<Spell> &spell: spells) {
+                if (spell != nullptr)
+                    world.addEntity(std::move(spell));
+            }
+        }
     }
 
-    std::unique_ptr<Spell> Player::castSpell() const {
-        Definition spellDef{definition.x, definition.y, 10, 10};
-        return std::make_unique<Spell>(spellDef);
+    void Player::addSpell(std::unique_ptr<Spell> &&spell) {
+        spells.push_back(std::move(spell));
     }
 }

@@ -1,12 +1,12 @@
 #pragma once
-#include <SFML/Graphics/ConvexShape.hpp>
 
 #include <engine/entity/Entity.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace Labyrinth {
     class Spell final : public Entity {
     public:
-        explicit Spell(const Definition &definition);
+        explicit Spell(const Definition &definition, const Directions &directions);
 
         ~Spell() override;
 
@@ -16,10 +16,11 @@ namespace Labyrinth {
 
         void update(float deltaTime, double totalTime) override;
 
-        [[nodiscard]]bool isOutOfBounds() const;
+        [[nodiscard]] bool isOutOfBounds() const;
 
     private:
-        sf::ConvexShape shape;
+        Directions direction;
+        sf::RectangleShape shape;
         float speed = 100.0f;
     };
 }
