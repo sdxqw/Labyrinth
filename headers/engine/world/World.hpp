@@ -26,7 +26,6 @@ namespace Labyrinth {
         [[nodiscard]] const std::vector<std::unique_ptr<Entity> > &getEntities() const; // Return a const reference
 
     private:
-        std::unique_ptr<Player> player;
         std::vector<std::unique_ptr<Entity> > entities;
     };
 }

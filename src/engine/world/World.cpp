@@ -2,7 +2,8 @@
 #include "engine/entity/Player.hpp"
 
 namespace Labyrinth {
-    World::World() : player(std::make_unique<Player>(Entity::Definition{10, 10, 32, 32}, *this)) {
+    World::World() {
+        const auto player = std::make_unique<Player>(Entity::Definition{10, 10, 32, 32}, *this);
         addEntity(static_cast<std::unique_ptr<Entity>>(player.get()));
     }
 
