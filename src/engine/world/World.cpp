@@ -3,8 +3,7 @@
 
 namespace Labyrinth {
     World::World() {
-        const auto player = std::make_unique<Player>(Entity::Definition{10, 10, 32, 32}, *this);
-        addEntity(static_cast<std::unique_ptr<Entity>>(player.get()));
+        addEntity(std::make_unique<Player>(Entity::Definition{10, 10, 32, 32}, *this));
     }
 
     World::~World() {
@@ -22,14 +21,14 @@ namespace Labyrinth {
     }
 
     void World::update(const float deltaTime, const double totalTime) {
-        for (const auto &entity: entities) {
-            entity->update(deltaTime, totalTime);
-        }
-
         entities.erase(std::remove_if(entities.begin(), entities.end(),
                                       [](const std::unique_ptr<Entity> &entity) {
                                           return entity->isDead();
                                       }), entities.end());
+
+        for (const auto &entity: entities) {
+            entity->update(deltaTime, totalTime);
+        }
     }
 
     void World::draw(sf::RenderWindow &window) const {

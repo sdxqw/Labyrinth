@@ -21,12 +21,15 @@ namespace Labyrinth {
     void Spell::update(const float deltaTime, double totalTime) {
         float dx = 0;
         float dy = 0;
-
         dx += 1 * deltaTime * speed;
         dy += 1 * deltaTime * speed;
-        shape.setPosition(dx, dy);
+        definition.x += dx;
+        definition.y += dy;
+        shape.move(dx, dy);
 
-        if (isOutOfBounds()) dead = true;
+        if (isOutOfBounds()) {
+            dead = true;
+        }
     }
 
     bool Spell::isOutOfBounds() const {
