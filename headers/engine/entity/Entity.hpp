@@ -28,9 +28,11 @@ namespace Labyrinth {
 
         virtual void update(float deltaTime, double totalTime) = 0;
 
-        virtual void cleanup() = 0;
-
         [[nodiscard]] bool isDead() const;
+
+        [[nodiscard]] const Definition &getDefinition() const;
+
+        [[nodiscard]] const Directions &getDirections() const;
 
     protected:
         Definition definition;

@@ -9,4 +9,12 @@ namespace Labyrinth {
     bool Entity::isDead() const {
         return dead;
     }
+
+    const Entity::Definition & Entity::getDefinition() const {
+        return definition;
+    }
+
+    const Entity::Directions & Entity::getDirections() const {
+        return directions;
+    }
 }

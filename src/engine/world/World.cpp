@@ -2,11 +2,12 @@
 #include "engine/entity/Player.hpp"
 
 namespace Labyrinth {
-    World::World() {
-        addEntity(static_cast<std::unique_ptr<Entity>>(new Player(Entity::Definition{10, 10, 10, 10})));
+    World::World() : player(std::make_unique<Player>(Entity::Definition{10, 10, 32, 32}, *this)) {
+        addEntity(static_cast<std::unique_ptr<Entity>>(player.get()));
     }
 
     World::~World() {
+        entities.clear();
     }
 
     void World::addEntity(std::unique_ptr<Entity> entity) {
@@ -19,10 +20,15 @@ namespace Labyrinth {
         }
     }
 
-    void World::update(const float deltaTime, const double totalTime) const {
-        for (auto &entity: entities) {
+    void World::update(const float deltaTime, const double totalTime) {
+        for (const auto &entity: entities) {
             entity->update(deltaTime, totalTime);
         }
+
+        entities.erase(std::remove_if(entities.begin(), entities.end(),
+                                      [](const std::unique_ptr<Entity> &entity) {
+                                          return entity->isDead();
+                                      }), entities.end());
     }
 
     void World::draw(sf::RenderWindow &window) const {

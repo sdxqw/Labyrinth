@@ -4,9 +4,10 @@
 #include <SFML/Window/Keyboard.hpp>
 
 #include "engine/input/InputHandler.hpp"
+#include "engine/world/World.hpp"
 
 namespace Labyrinth {
-    Player::Player(const Definition &definition): Entity(definition) {
+    Player::Player(const Definition &definition, World &world): Entity(definition), world(world) {
         rectangle.setSize(sf::Vector2f(definition.width, definition.height));
         rectangle.setPosition(definition.x, definition.y);
         rectangle.setFillColor(sf::Color::Red);
@@ -23,6 +24,10 @@ namespace Labyrinth {
         directions.left = InputHandler::isKeyPressed(sf::Keyboard::A);
         directions.up = InputHandler::isKeyPressed(sf::Keyboard::W);
         directions.down = InputHandler::isKeyPressed(sf::Keyboard::S);
+        if (InputHandler::isKeyPressed(sf::Keyboard::Space)) {
+            auto spell = castSpell();
+            world.addEntity(std::move(spell));
+        }
     }
 
     void Player::update(const float deltaTime, const double totalTime) {
@@ -35,6 +40,8 @@ namespace Labyrinth {
         rectangle.move(dx * deltaTime * speed, dy * deltaTime * speed);
     }
 
-    void Player::cleanup() {
+    std::unique_ptr<Spell> Player::castSpell() const {
+        Definition spellDef{definition.x, definition.y, 10, 10};
+        return std::make_unique<Spell>(spellDef);
     }
 }

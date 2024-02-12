@@ -17,6 +17,8 @@ add_executable(Labyrinth
         headers/engine/world/World.hpp
         src/engine/world/World.cpp
         headers/engine/input/InputHandler.hpp
+        headers/engine/entity/Spell.hpp
+        src/engine/entity/Spell.cpp
 )
 
 target_link_libraries(Labyrinth
