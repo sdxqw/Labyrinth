@@ -5,13 +5,7 @@
 namespace Labyrinth {
     Engine::Engine() {
         window = std::make_unique<sf::RenderWindow>(sf::VideoMode(800, 600), "Labyrinth");
-        if (!window) {
-            throw std::runtime_error("Failed to create SFML window");
-        }
         world = std::make_unique<World>();
-        if (!world) {
-            throw std::runtime_error("Failed to create world");
-        }
     }
 
     void Engine::cleanup() const {

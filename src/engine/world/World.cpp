@@ -27,7 +27,8 @@ namespace Labyrinth {
                                       }), entities.end());
 
         for (const auto &entity: entities) {
-            entity->update(deltaTime, totalTime);
+            if (entity != nullptr)
+                entity->update(deltaTime, totalTime);
         }
     }
 

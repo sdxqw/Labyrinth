@@ -4,11 +4,8 @@
 #include <memory>
 
 #include "engine/entity/Entity.hpp"
-#include "engine/entity/Player.hpp"
 
 namespace Labyrinth {
-    class Player;
-
     class World {
     public:
         World();

@@ -24,7 +24,7 @@ namespace Labyrinth {
         directions.left = InputHandler::isKeyPressed(sf::Keyboard::A);
         directions.up = InputHandler::isKeyPressed(sf::Keyboard::W);
         directions.down = InputHandler::isKeyPressed(sf::Keyboard::S);
-        if (InputHandler::isKeyPressed(sf::Keyboard::Space)) {
+        if (InputHandler::isKeyJustPressed(sf::Keyboard::Space)) {
             addSpell(std::make_unique<Spell>(definition, directions));
         }
     }

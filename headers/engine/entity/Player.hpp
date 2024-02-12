@@ -4,11 +4,10 @@
 
 #include "Entity.hpp"
 #include "Spell.hpp"
+#include "engine/world/World.hpp"
 
 
 namespace Labyrinth {
-    class World;
-
     class Player final : public Entity {
     public:
         explicit Player(const Definition &definition, World &world);

@@ -1,6 +1,3 @@
-#pragma once
-#include <SFML/Window/Keyboard.hpp>
-
 namespace Labyrinth {
     class InputHandler {
     public:
@@ -17,6 +14,9 @@ namespace Labyrinth {
             const auto index = static_cast<int>(key);
             const auto wasPressed = keys[index];
             keys[index] = isKeyPressed(key);
+            if (wasPressed) {
+                keys[index] = false;
+            }
             return wasPressed;
         }
     };
